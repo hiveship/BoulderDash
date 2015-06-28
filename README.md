@@ -1,4 +1,17 @@
-# BoulderDash
 
-Projet de développement web en première année de formation IMR à l'ENSSAT.
-Utilisation du pattern MVC.
+###################
+Boulder Dash
+###################
+
+
+*******************
+Lancement de l'application
+*******************
+
+La classe principale permettant de lancer l'application est
+  nantel.java.boulder.Launcher
+  
+*******************
+Build
+*******************
+  mvn clean install
