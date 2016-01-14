@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class LevelTest
 {
-	private Level level = new Level(10, 10, 3);
+	private Level level;
 
 	@Before
 	public void setUp()
