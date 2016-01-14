@@ -1,7 +1,7 @@
 package nantel.java.utilities;
 /**
- * DefaultLogger that use the standart output (System.out) to display information. 
- * /
+ *   DefaultLogger that use the standart output (System.out) to display information. 
+ */
 public class DefaultLogger implements Logger
 {
 	private boolean error = Boolean.parseBoolean(System.getProperty("error"));
