@@ -1,5 +1,6 @@
 package nantel.java.utilities;
 
+// Temporary class only.
 public class DefaultLoggerWithOutNewLine implements Logger
 {
 	private boolean error = Boolean.parseBoolean(System.getProperty("error"));
