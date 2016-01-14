@@ -22,7 +22,7 @@ public class LevelRepositoryTest
 {
 	private static final String TEST_FILE_NAME = "TEST";
 
-	private static Level niveau = new Level(10, 10, 1);
+	private static Level niveau;
 
 	@Before
 	public void setUp() throws IOException
