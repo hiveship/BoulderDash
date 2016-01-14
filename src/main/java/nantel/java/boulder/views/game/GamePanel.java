@@ -45,7 +45,7 @@ public class GamePanel extends JPanel
 
 		for ( int y = 0; y < controller.getRows(); y++ ) {
 			for ( int x = 0; x < controller.getColumns(); x++ ) {
-				// We need to swap the 'x' and 'y' coords in order to display the playfield in the right order.
+				// FIXME: We currently need to swap the 'x' and 'y' coords in order to display the playfield in the right order.
 				graphicsContext.drawImage(controller.getImageAt(y, x), x * defaultSpriteSize, y * defaultSpriteSize, this);
 			}
 		}
