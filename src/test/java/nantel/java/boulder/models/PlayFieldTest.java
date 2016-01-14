@@ -18,7 +18,7 @@ import org.junit.Test;
 
 public class PlayFieldTest
 {
-	private PlayField playField = new PlayField(10, 10);
+	private PlayField playField;
 
 	@Before
 	public void setUp()
