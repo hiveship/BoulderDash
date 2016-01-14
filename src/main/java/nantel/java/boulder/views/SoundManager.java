@@ -21,12 +21,10 @@ public class SoundManager
 		assert DEFAULT_SOUNDS_PATH != null;
 		File file = new File(DEFAULT_SOUNDS_PATH + sound.getSoundName());
 		try ( AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file); ) {
-			@SuppressWarnings("resource")
-			// Closed in the finally bloc. Using a try-with-resource bloc avoid to sound to be playing (close method is called before playing the sound)
+			@SuppressWarnings("resource") // FIXME Memory leak, find how to close the clip object only when the sound is finished.
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
-			// FIXME Memory leak, find how to close the clip object only when the sound is finished.
 		} catch ( Exception e ) {
 			// Playing sound is not important for the game, so if an error occurs, we just ignore it.
 		}
