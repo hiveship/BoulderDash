@@ -1,7 +1,7 @@
 package nantel.java.boulder.models;
 
 /**
- * Direction from wich you can deplace and Entity
+ * Direction from wich you can deplace an Entity
  */
 public enum Direction
 {
