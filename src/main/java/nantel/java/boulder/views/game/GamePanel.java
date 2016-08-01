@@ -80,7 +80,7 @@ public class GamePanel extends JPanel
 		{
 			try {
 				getController().mooveRockford(direction);
-			} catch ( IllegalDeplacementException e ) {
+			} catch ( IllegalDeplacementException e ) { //TODO: Add catch clause for 'ExitNotAllowedException'
 				getToolkit().beep(); // Just a beep that inform the player that his deplacement was not accepted.
 			}
 		}

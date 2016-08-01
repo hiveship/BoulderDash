@@ -29,9 +29,10 @@ public class LevelRepository
 	 * Default path to save the levels.
 	 */
 	@SuppressWarnings("null")
-	public static final String DEFAULT_FOLDER_PATH = LevelRepository.class.getResource("/levels/").getPath();
+	//public static final String DEFAULT_FOLDER_PATH = LevelRepository.class.getResource("/levels/").getPath();// FIXME: error at this line causing the class not loaded
+    public static final String DEFAULT_FOLDER_PATH = LevelRepository.class.getProtectionDomain().getCodeSource().getLocation().getFile() + "../../levels/";
 
-	/**
+    /**
 	 * Unique name that will be used if someone try to save a level without
 	 * specifying a name.
 	 */

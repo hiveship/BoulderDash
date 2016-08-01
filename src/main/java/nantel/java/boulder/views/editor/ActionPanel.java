@@ -56,7 +56,7 @@ public class ActionPanel extends JPanel
 		buttonFirefly.setText("Firefly");
 		buttonFirefly.addActionListener(new GameElementSelectionListener(GameElement.FIREFLY));
 
-		JButton buttonAmoeba = new JButton(new ImageIcon(ActionPanel.class.getResource("/views/entities/Amoeba.gif")));
+		JButton buttonAmoeba = new JButton(new ImageIcon(ActionPanel.class.getResource("/views/entities/amoeba.gif")));
 		buttonAmoeba.setText("Amoeba");
 		buttonAmoeba.addActionListener(new GameElementSelectionListener(GameElement.AMOEBA));
 

@@ -7,14 +7,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import junit.framework.Assert;
 import nantel.java.boulder.models.entities.moovable.Boulder;
 import nantel.java.boulder.models.entities.moovable.Diamond;
 import nantel.java.boulder.models.exceptions.LevelLoadingException;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 //@Test methods can not be declared as static with JUnit.
 @SuppressWarnings("static-method")
@@ -22,13 +22,13 @@ public class LevelRepositoryTest
 {
 	private static final String TEST_FILE_NAME = "TEST";
 
-	private static Level niveau;
+	private static Level level;
 
 	@Before
 	public void setUp() throws IOException
 	{
-		niveau = new Level(10, 10, 1);
-		LevelRepository.save(niveau, TEST_FILE_NAME);
+		level = new Level(10, 10, 1);
+		LevelRepository.save(level, TEST_FILE_NAME);
 	}
 
 	@After
@@ -44,9 +44,9 @@ public class LevelRepositoryTest
 	@Test
 	public void save()
 	{
-		assert niveau != null;
+		assert level != null;
 		try {
-			LevelRepository.save(niveau, TEST_FILE_NAME);
+			LevelRepository.save(level, TEST_FILE_NAME);
 		} catch ( IOException e ) {
 			assert false : "Saving a level should not fail";
 		}
@@ -65,7 +65,7 @@ public class LevelRepositoryTest
 	@Test
 	public void loadSameLevel()
 	{
-		Level niveau = LevelRepositoryTest.niveau;
+		Level niveau = LevelRepositoryTest.level;
 		assert niveau != null;
 
 		try {
@@ -90,7 +90,7 @@ public class LevelRepositoryTest
 
 		Level niveauLoaded = LevelRepository.load("other-level");
 		Assert.assertNotNull(niveauLoaded);
-		Assert.assertFalse(niveauLoaded.getPlayField().equals(niveau.getPlayField()));
+		Assert.assertFalse(niveauLoaded.getPlayField().equals(level.getPlayField()));
 		LevelRepository.delete("other-level");
 	}
 
@@ -98,20 +98,20 @@ public class LevelRepositoryTest
 	public void levelEquals()
 	{
 		// Level equals itself
-		assert niveau != null;
-		final Level niveauChecked = niveau;
-		Assert.assertTrue(niveauChecked.getPlayField().equals(niveauChecked.getPlayField()));
+		assert level != null;
+		final Level levelChecked = level;
+		Assert.assertTrue(levelChecked.getPlayField().equals(levelChecked.getPlayField()));
 
 		// Create another instance of the same level
 		Level same = new Level(10, 10, 1);
-		Assert.assertTrue(same.getPlayField().equals(niveauChecked.getPlayField()));
+		Assert.assertTrue(same.getPlayField().equals(levelChecked.getPlayField()));
 	}
 
 	@Test
 	public void loadWrongFileName() throws IOException
 	{
 		//		String fakeFileName = "target/fake-level-save";
-		String fakeFileName = LevelRepositoryTest.class.getResource("/levels/").getPath() + "fake-level-save";
+		String fakeFileName = LevelRepository.DEFAULT_FOLDER_PATH + "fake-level-save";
 
 		// Create a file without the good prefix name.
 		try ( ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fakeFileName)); ) {
