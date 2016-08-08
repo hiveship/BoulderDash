@@ -1,22 +1,14 @@
 package nantel.java.boulder.views.editor;
 
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-
-import javax.swing.AbstractAction;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
 import nantel.java.annotations.Nullable;
 import nantel.java.boulder.controllers.ApplicationController;
 import nantel.java.boulder.controllers.LevelEditorController;
 import nantel.java.boulder.views.ViewUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 /**
  * Main frame for the level editor.
@@ -58,10 +50,8 @@ public class LevelEditorWindow extends JFrame
 			@Override
 			public void actionPerformed(@Nullable final ActionEvent e)
 			{
-				JScrollPane scrollpane = new JScrollPane();
-
 				// HTML for pretty display
-				scrollpane = new JScrollPane(
+                JScrollPane scrollpane = new JScrollPane(
 						new JLabel(
 								"<html><center><h1><strong>Boulder Dash Level Editor&nbsp;</strong></h1></center>"
 										+ "<hr /><ul><li>Selectionnez un élément sur la gauche et ajouter le sur le terrain en clickant</li><li>Vous ne pouvez placer qu'un seul Rockford</li><li>Vous ne pouvez placer qu'une seule sortie</li></ul><hr /><p>Bonne construction et n'oubliez pas de sauvegarder votre niveau une fois terminé (onglet Menu > Sauvegarder)!</p><p>&nbsp;</p></html>"));

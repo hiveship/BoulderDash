@@ -1,20 +1,10 @@
 package nantel.java.boulder.models;
 
-import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import nantel.java.annotations.Nullable;
 import nantel.java.boulder.models.entities.Dirt;
 import nantel.java.boulder.models.entities.EmptySpace;
 import nantel.java.boulder.models.entities.Entity;
-import nantel.java.boulder.models.entities.moovable.AbstractMovableEntity;
-import nantel.java.boulder.models.entities.moovable.Boulder;
-import nantel.java.boulder.models.entities.moovable.Diamond;
-import nantel.java.boulder.models.entities.moovable.Exit;
-import nantel.java.boulder.models.entities.moovable.MovableEntityComparator;
-import nantel.java.boulder.models.entities.moovable.Rockford;
+import nantel.java.boulder.models.entities.moovable.*;
 import nantel.java.boulder.models.entities.walls.SteelWall;
 import nantel.java.boulder.models.exceptions.ExitNotAllowedException;
 import nantel.java.boulder.models.exceptions.IllegalDeplacementException;
@@ -24,11 +14,16 @@ import nantel.java.boulder.models.matrix.EntityMatrix2DArrayImpl;
 import nantel.java.utilities.DefaultLogger;
 import nantel.java.utilities.Logger;
 
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayField implements Serializable
 {
 	private static final long serialVersionUID = 4034944613388319432L;
 
-	private static final Logger LOGGER = new DefaultLogger();
+	private static final Logger LOGGER = new DefaultLogger(PlayField.class);
 	private final EntityMatrix matrix;
 
 	private final Rockford rockford;
@@ -324,10 +319,9 @@ public class PlayField implements Serializable
 			LOGGER.debug("Rockford a bougé d'une case dans la direction -> " + direction.name().toLowerCase());
 			if ( exit.isAllowed() ) {
 				deplace(rockford, direction);
-
 				exit.setReached(true); // will end the game
 			} else {
-				throw new ExitNotAllowedException();
+				throw new ExitNotAllowedException(); //FIXME: In certain cases, the Exit is not allowed... but it should be !
 			}
 		} else {
 			LOGGER.debug("Rockford ne peut pas se déplacer d'une case dans la direction -> " + direction.name());

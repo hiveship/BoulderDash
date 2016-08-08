@@ -1,6 +1,5 @@
 package nantel.java.boulder.models;
 
-import junit.framework.Assert;
 import nantel.java.boulder.models.entities.Dirt;
 import nantel.java.boulder.models.entities.EmptySpace;
 import nantel.java.boulder.models.entities.Entity;
@@ -12,7 +11,7 @@ import nantel.java.boulder.models.entities.walls.BrickWall;
 import nantel.java.boulder.models.entities.walls.SteelWall;
 import nantel.java.boulder.models.exceptions.IllegalDeplacementException;
 import nantel.java.boulder.models.exceptions.IllegalEntityPlacementException;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

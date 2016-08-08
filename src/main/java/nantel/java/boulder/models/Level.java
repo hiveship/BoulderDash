@@ -1,12 +1,12 @@
 package nantel.java.boulder.models;
 
-import java.io.Serializable;
-import java.util.Observable;
-
 import nantel.java.annotations.Nullable;
 import nantel.java.boulder.models.entities.Entity;
 import nantel.java.utilities.DefaultLogger;
 import nantel.java.utilities.Logger;
+
+import java.io.Serializable;
+import java.util.Observable;
 
 /**
  * Main class of the model. A level is composed of a play field and some other
@@ -16,7 +16,7 @@ import nantel.java.utilities.Logger;
 public class Level extends Observable implements Serializable
 {
 	private static final long serialVersionUID = 3704335212651627910L;
-	private static final Logger LOGGER = new DefaultLogger();
+	private static final Logger LOGGER = new DefaultLogger(Level.class);
 	private final PlayField playField;
 	private final int diamondsToWin;
 	private boolean pause;
@@ -77,7 +77,7 @@ public class Level extends Observable implements Serializable
 					updateGame = true;
 				}
 			}
-			Thread.sleep(100);
+			Thread.sleep(175); //TODO: Make this value configurable (game speed)
 			// Animate the sprite at every round (sprites still need to be animated is the game is in pause.)
 			setChanged();
 			notifyObservers();

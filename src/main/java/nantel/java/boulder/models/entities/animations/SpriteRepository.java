@@ -1,21 +1,20 @@
 package nantel.java.boulder.models.entities.animations;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import nantel.java.boulder.models.exceptions.BoulderDashUnexpectedException;
 import nantel.java.utilities.DefaultLogger;
 import nantel.java.utilities.Logger;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Class used to manage the sprites elements.
  */
 public class SpriteRepository
 {
-	private static final Logger LOGGER = new DefaultLogger();
+	private static final Logger LOGGER = new DefaultLogger(SpriteRepository.class);
 	@SuppressWarnings("null")
 	private static String SPRITE_DIRECTORY_PATH = SpriteRepository.class.getResource("/sprites/").getPath();
 	private static String SPRITE_FILE_EXTENSION = ".gif";

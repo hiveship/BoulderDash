@@ -1,12 +1,5 @@
 package nantel.java.boulder.models;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-
 import nantel.java.boulder.models.entities.moovable.Boulder;
 import nantel.java.boulder.models.entities.moovable.Diamond;
 import nantel.java.boulder.models.exceptions.LevelLoadingException;
@@ -14,6 +7,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 
 //@Test methods can not be declared as static with JUnit.
@@ -100,7 +100,7 @@ public class LevelRepositoryTest
 		// Level equals itself
 		assert level != null;
 		final Level levelChecked = level;
-		Assert.assertTrue(levelChecked.getPlayField().equals(levelChecked.getPlayField()));
+		Assert.assertTrue(level.getPlayField().equals(levelChecked.getPlayField()));
 
 		// Create another instance of the same level
 		Level same = new Level(10, 10, 1);
@@ -114,7 +114,7 @@ public class LevelRepositoryTest
 		String fakeFileName = LevelRepository.DEFAULT_FOLDER_PATH + "fake-level-save";
 
 		// Create a file without the good prefix name.
-		try ( ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fakeFileName)); ) {
+		try ( ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fakeFileName)) ) {
 			outputStream.writeObject(null);
 		}
 

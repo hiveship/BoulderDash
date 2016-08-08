@@ -1,14 +1,14 @@
 package nantel.java.boulder.models.matrix;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 import nantel.java.annotations.Nullable;
 import nantel.java.boulder.models.entities.Entity;
 import nantel.java.boulder.models.exceptions.IllegalEntityPlacementException;
 import nantel.java.utilities.DefaultLogger;
 import nantel.java.utilities.DefaultLoggerWithOutNewLine;
 import nantel.java.utilities.Logger;
+
+import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * An implementation of the EntityMatrix class using a java 2D array to store
@@ -19,7 +19,7 @@ final public class EntityMatrix2DArrayImpl implements EntityMatrix, Serializable
 	private static final long serialVersionUID = 1620562427653382683L;
 
 	private static final Logger MATRIX_LOGGER = new DefaultLoggerWithOutNewLine();
-	private static final Logger LOGGER = new DefaultLogger();
+	private static final Logger LOGGER = new DefaultLogger(EntityMatrix2DArrayImpl.class);
 
 	private final int rows; // x coord
 	private final int columns; // y coord
@@ -100,7 +100,6 @@ final public class EntityMatrix2DArrayImpl implements EntityMatrix, Serializable
 		}
 
 		EntityMatrix other = (EntityMatrix) object;
-		assert other != null;
 
 		// Compare sizes
 		if ( this.getColumnsCount() != other.getColumnsCount() || this.getRowsCount() != other.getRowsCount() ) {

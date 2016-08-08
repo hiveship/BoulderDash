@@ -1,7 +1,7 @@
 package nantel.java.boulder.views.editor;
 
 /**
- * We are in the view so we can not directly used the Entities elements (model).
+ * We are in the view so we can not directly used the Entities elements (model). (MVC Pattern)
  */
 public enum GameElement // refers to entities
 {
@@ -17,5 +17,5 @@ public enum GameElement // refers to entities
 	STEEL_WALL,
 	AMOEBA,
 	FIREFLY,
-	BUTTERFLY;
+	BUTTERFLY
 }

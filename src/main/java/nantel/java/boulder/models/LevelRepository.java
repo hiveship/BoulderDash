@@ -1,24 +1,19 @@
 package nantel.java.boulder.models;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import nantel.java.boulder.models.exceptions.LevelLoadingException;
+import nantel.java.utilities.DefaultLogger;
+import nantel.java.utilities.Logger;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import nantel.java.boulder.models.exceptions.LevelLoadingException;
-import nantel.java.utilities.DefaultLogger;
-import nantel.java.utilities.Logger;
-
 public class LevelRepository
 {
-	private static final Logger LOGGER = new DefaultLogger();
+	private static final Logger LOGGER = new DefaultLogger(LevelRepository.class);
 
 	/**
 	 * Prefix that will be added to all level files.
@@ -53,7 +48,7 @@ public class LevelRepository
 	 */
 	public static void save(final Level level, final String outputFileName) throws IOException
 	{
-		try ( ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(DEFAULT_FOLDER_PATH + PERSISTANCE_FILE_LEVEL_PREFIX + outputFileName)); ) {
+		try ( ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(DEFAULT_FOLDER_PATH + PERSISTANCE_FILE_LEVEL_PREFIX + outputFileName)) ) {
 			outputStream.writeObject(level);
 		}
 	}
@@ -115,7 +110,7 @@ public class LevelRepository
 	public static List<String> getAllExistingFileNames(final String directoryPath)
 	{
 		List<String> fileNames = new ArrayList<>();
-		for ( File element : new File(directoryPath).listFiles() ) {
+		for ( File element : new File(directoryPath).listFiles() ) { // FIXME: Cause npe if the 'levels' directory is not yet created...
 			if ( element.isFile() && element.getName().startsWith(PERSISTANCE_FILE_LEVEL_PREFIX) ) {
 				String prettyName = element.getName().replace(PERSISTANCE_FILE_LEVEL_PREFIX, "");
 				fileNames.add(prettyName);

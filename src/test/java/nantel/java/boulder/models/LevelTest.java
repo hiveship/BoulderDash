@@ -1,9 +1,8 @@
 package nantel.java.boulder.models;
 
-import junit.framework.Assert;
 import nantel.java.boulder.models.entities.moovable.Diamond;
 import nantel.java.boulder.models.exceptions.ExitNotAllowedException;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

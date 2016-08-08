@@ -1,24 +1,11 @@
 package nantel.java.boulder.views;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import nantel.java.boulder.controllers.ApplicationController;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
-
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import nantel.java.annotations.Nullable;
-import nantel.java.boulder.controllers.ApplicationController;
 
 /**
  * Main window of the application, used to navigate between the editor and the
@@ -62,93 +49,69 @@ public class MainWindow extends JFrame
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
 
-		levelsComboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final @Nullable ActionEvent event)
-			{
-				playButton.setEnabled(true);
-				editButton.setEnabled(true);
-				deleteButton.setEnabled(true);
-			}
-		});
+		levelsComboBox.addActionListener(event -> {
+            playButton.setEnabled(true);
+            editButton.setEnabled(true);
+            deleteButton.setEnabled(true);
+        });
 
-		newButton.addActionListener(new ActionListener() {
+		newButton.addActionListener(e -> {
+            JTextField rowsCount = new JTextField(5);
+            JTextField columnsCount = new JTextField(5);
+            JTextField diamondsToWinCount = new JTextField(5);
+            JPanel myPanel = new JPanel();
+            myPanel.add(new JLabel("Nombre de lignes: "));
+            myPanel.add(rowsCount);
+            myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+            myPanel.add(new JLabel("Nombre de colonnes: "));
+            myPanel.add(columnsCount);
+            myPanel.add(Box.createHorizontalStrut(15));
+            myPanel.add(new JLabel("Nombre de diamants pour gagner: "));
+            myPanel.add(diamondsToWinCount);
 
-			@Override
-			public void actionPerformed(final @Nullable ActionEvent e)
-			{
-				JTextField rowsCount = new JTextField(5);
-				JTextField columnsCount = new JTextField(5);
-				JTextField diamondsToWinCount = new JTextField(5);
-				JPanel myPanel = new JPanel();
-				myPanel.add(new JLabel("Nombre de lignes: "));
-				myPanel.add(rowsCount);
-				myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-				myPanel.add(new JLabel("Nombre de colonnes: "));
-				myPanel.add(columnsCount);
-				myPanel.add(Box.createHorizontalStrut(15));
-				myPanel.add(new JLabel("Nombre de diamants pour gagner: "));
-				myPanel.add(diamondsToWinCount);
+            int result = JOptionPane.showConfirmDialog(getCurrentFrame(), myPanel, "Saisir les paramètres de configuration", JOptionPane.OK_CANCEL_OPTION);
+            if ( result == JOptionPane.OK_OPTION ) {
+                try {
+                    int rows = Integer.parseInt(rowsCount.getText());
+                    int columns = Integer.parseInt(columnsCount.getText());
+                    int diamonds = Integer.parseInt(diamondsToWinCount.getText());
+                    controller.launchLevelEditor(rows, columns, diamonds);
+                    getCurrentFrame().setVisible(false);
+                    getCurrentFrame().dispose();
+                } catch ( NumberFormatException e1 ) {
+                    JOptionPane.showMessageDialog(getCurrentFrame(), "Erreurs dans les valeurs, veuillez saisir des nombres entiers uniquement");
+                }
+            }
+        });
 
-				int result = JOptionPane.showConfirmDialog(getCurrentFrame(), myPanel, "Saisir les paramètres de configuration", JOptionPane.OK_CANCEL_OPTION);
-				if ( result == JOptionPane.OK_OPTION ) {
-					try {
-						int rows = Integer.parseInt(rowsCount.getText());
-						int columns = Integer.parseInt(columnsCount.getText());
-						int diamonds = Integer.parseInt(diamondsToWinCount.getText());
-						controller.launchLevelEditor(rows, columns, diamonds);
-						getCurrentFrame().setVisible(false);
-						getCurrentFrame().dispose();
-					} catch ( NumberFormatException e1 ) {
-						JOptionPane.showMessageDialog(getCurrentFrame(), "Erreurs dans les valeurs, veuillez saisir des nombres entiers uniquement");
-					}
-				}
-			}
-		});
+		playButton.addActionListener(e -> {
+            String selectedItem = (String) levelsComboBox.getSelectedItem();
+            assert selectedItem != null;
+            controller.lauchGame(selectedItem);
+            getCurrentFrame().dispose();
+        });
 
-		playButton.addActionListener(new ActionListener() {
+		editButton.addActionListener(e -> {
+            String selectedItem = (String) levelsComboBox.getSelectedItem();
+            assert selectedItem != null;
+            controller.launchLevelEditor(selectedItem);
+            getCurrentFrame().dispose();
+        });
 
-			@Override
-			public void actionPerformed(final @Nullable ActionEvent e)
-			{
-				String selectedItem = (String) levelsComboBox.getSelectedItem();
-				assert selectedItem != null;
-				controller.lauchGame(selectedItem);
-				getCurrentFrame().dispose();
-			}
-		});
+		deleteButton.addActionListener(e -> {
+            int dialogResult = JOptionPane.showConfirmDialog(getCurrentFrame(), "Voulez vous vraiment supprimer ce niveau ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+            if ( dialogResult == JOptionPane.OK_OPTION ) {
+                String selectedItem = (String) levelsComboBox.getSelectedItem();
+                assert selectedItem != null;
+                try {
+                    getController().deleteLevel(selectedItem);
+                    setComboBoxValues();
+                } catch ( IOException e1 ) {
+                    JOptionPane.showMessageDialog(getCurrentFrame(), "Erreur, impossible de supprimer ce niveau.");
+                }
+            }
 
-		editButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final @Nullable ActionEvent e)
-			{
-				String selectedItem = (String) levelsComboBox.getSelectedItem();
-				assert selectedItem != null;
-				controller.launchLevelEditor(selectedItem);
-				getCurrentFrame().dispose();
-			}
-		});
-
-		deleteButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final @Nullable ActionEvent e)
-			{
-				int dialogResult = JOptionPane.showConfirmDialog(getCurrentFrame(), "Voulez vous vraiment supprimer ce niveau ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
-				if ( dialogResult == JOptionPane.OK_OPTION ) {
-					String selectedItem = (String) levelsComboBox.getSelectedItem();
-					assert selectedItem != null;
-					try {
-						getController().deleteLevel(selectedItem);
-						setComboBoxValues();
-					} catch ( IOException e1 ) {
-						JOptionPane.showMessageDialog(getCurrentFrame(), "Erreur, impossible de supprimer ce niveau.");
-					}
-				}
-
-			}
-		});
+        });
 
 		panel0.add(new JLabel(new ImageIcon(getClass().getResource("/logo.png"))));
 

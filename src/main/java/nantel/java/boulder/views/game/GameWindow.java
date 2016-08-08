@@ -1,24 +1,16 @@
 package nantel.java.boulder.views.game;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.AbstractAction;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
 import nantel.java.annotations.Nullable;
 import nantel.java.boulder.controllers.ApplicationController;
 import nantel.java.boulder.controllers.GameController;
 import nantel.java.boulder.views.SoundManager;
 import nantel.java.boulder.views.ViewUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 public class GameWindow extends JFrame implements Observer
 {
@@ -61,20 +53,7 @@ public class GameWindow extends JFrame implements Observer
 		ViewUtilities.setGeneralParameters(getCurrentFrame());
 		SoundManager.play(Sounds.START_GAME);
 
-		new Thread(new Runnable() {
-			/*
-			 * Starting the game loop inside the context of the Event Dispatcher
-			 * Thread, lead to blocking it, preventing it from processing the
-			 * event queue, including paint request. See
-			 * http://stackoverflow.com/questions
-			 * /30990246/java-swing-jframe-launch-another-jframe-for-game
-			 */
-			@Override
-			public void run()
-			{
-				controller.startGame();
-			}
-		}).start();
+		new Thread(controller::startGame).start();
 	}
 
 	private JMenuBar createMenu()
@@ -88,10 +67,8 @@ public class GameWindow extends JFrame implements Observer
 			@Override
 			public void actionPerformed(@Nullable final ActionEvent e)
 			{
-				JScrollPane scrollpane = new JScrollPane();
-
 				// HTML for pretty display
-				scrollpane = new JScrollPane(
+                JScrollPane scrollpane = new JScrollPane(
 				        new JLabel(
 				                "<html><center><h1><strong>Boulder Dash&nbsp;</strong></h1></center>"
 				                        + "<hr /><ul><li>Pour d&eacute;placer le personnage (Rockford), utilisez les fl&egrave;ches de votre clavier.</li><li>Vous ne devez pas vous faire tuer par un adversaire</li><li>Vous devez ramasser un nombre suffisant de diamants pour d&eacute;bloquer la sortie du niveau</li><li>Vous ne devez pas vous faire &eacute;craser par un rocher ou un diamant en chute.</li></ul><hr /><p>Bon courage !</p><p>&nbsp;</p></html>"));
