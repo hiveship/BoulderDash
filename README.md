@@ -1,6 +1,7 @@
 ## Waiting for project presentation...
 
-# Boulder Dash ![Logo](./src/main/resources/logo.png)
+# Boulder Dash 
+![Logo](./src/main/resources/logo.png)
 
 ## Presentation
 
