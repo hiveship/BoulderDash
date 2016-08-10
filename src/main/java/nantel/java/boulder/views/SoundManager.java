@@ -30,7 +30,7 @@ public class SoundManager
 			clip.start();
 		} catch ( Exception e ) {
 			// Playing sound is not important for the game, so if an error occurs, we just ignore it.
-            LOGGER.info("Can not play the sound: '" + sound.getSoundName() + "' due to an '" + e.getClass() +"'");
+            		LOGGER.info("Can not play the sound: '" + sound.getSoundName() + "' due to an exception ('" + e.getClass() +"')");
 		}
 	}
 }
