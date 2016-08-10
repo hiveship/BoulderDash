@@ -56,8 +56,7 @@ public class ApplicationController
 	{
 		assert levelQueried != null;
 		LevelEditorController controller = new LevelEditorController(LevelRepository.load(levelQueried));
-		@SuppressWarnings("unused")
-		LevelEditorWindow view = new LevelEditorWindow(controller);
+		new LevelEditorWindow(controller);
 	}
 
 	/**
@@ -70,8 +69,7 @@ public class ApplicationController
 	{
 		assert levelQueried != null;
 		GameController controller = new GameController(LevelRepository.load(levelQueried));
-		@SuppressWarnings("unused")
-		GameWindow view = new GameWindow(controller);
+		new GameWindow(controller);
 	}
 
 	/**
